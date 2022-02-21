@@ -1,6 +1,6 @@
 const express = require('express');
 const root = require('../controllers/root');
-const error = require('../middewares/error');
+const error = require('../middlewares/error');
 
 const app = express();
 app.use(express.json());
