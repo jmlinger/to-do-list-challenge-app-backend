@@ -3,10 +3,12 @@ const UsersModel = require('../../models/users');
 const { auth } = require('../auth');
 const { INCORRECT_LOGIN, ALL_MUST_BE_FILLED } = require('../../utils/errorSet');
 const { userValidation } = require('./validations');
+const { INVALID_ENTRIES } = require('../../../utils/errorSet');
 
 module.exports = async (user) => {
-  if (userValidation(user).error) {
-    return ALL_MUST_BE_FILLED;
+  const validationError = userValidation(user).error;
+  if (validationError) {
+    return INVALID_ENTRIES(validationError.message);
   }
   
   const findUserByEmail = await UsersModel.findOne({ email });
